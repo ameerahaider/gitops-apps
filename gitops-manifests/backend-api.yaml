@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+  namespace: personality-simulation-engine-app
+
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate 
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+        - name: personality-simulation-engine-registry-secret
+      containers:
+      - name: api
+        # Updated from task-manager-registry
+        image: registry.digitalocean.com/personality-simulation-engine-registry/backend:latest
+
+
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5678  # Our Node.js Express server listens here.
+        env:
+        - name: DATABASE_URL
+          # Secret created by Terraform in database.tf
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: uri
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: "0"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: personality-simulation-engine-app
+
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 80         # The "Front Door" of the service
+      targetPort: 5678  # Forwards to the containerPort above

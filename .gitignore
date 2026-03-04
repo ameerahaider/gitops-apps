@@ -1,0 +1,36 @@
+## Node.js
+node_modules/
+application/frontend/node_modules/
+application/backend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+## Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+tfplan
+
+## Environment / Secrets
+.env
+.env.*
+.env.local
+.DS_Store
+Thumbs.db
+
+## Build Artifacts
+dist/
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+## IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
