@@ -7,6 +7,10 @@
 
 This repository contains the **Infrastructure as Code (IaC)** and **GitOps Manifests** for the Personality Simulation Engine project. It manages cloud resources (DigitalOcean) and the Kubernetes Cluster configuration.
 
+## 🏗️ Architecture Diagram
+
+![alt text](ArchitectureDiagram.png)
+
 ## 🏗 Repository Structure
 
 -   **[`terraform/`](./terraform)**: Terraform configuration files for:
